@@ -1,0 +1,200 @@
+--[[
+    ============================================================
+    NEComu Hub Mobile V3 • UNIVERSAL
+    ============================================================
+    2026-10-02
+
+    • Oyunlara özel sekmeler kaldırıldı.
+    • Tek sekme: UNIVERSAL
+    • Keyless / no-key kaynaklar önceliklendirildi.
+    • Mobile + PC uyumluluğu belirtilenler önceliklidir.
+    • "Çalışıyor" iddiası kaynakların güncel durumuna dayanır;
+      Roblox içinde tarafımdan canlı executor testi yapılmamıştır.
+    • Remote loader içerikleri sonradan değişebilir.
+    • Roblox exploit kullanımı hesap yaptırımına yol açabilir.
+--]]
+
+
+-- ============================================================
+-- 👤 PRODUCERS
+-- ============================================================
+-- TikTok
+-- @necomu.scripts
+--
+-- YouTube
+-- @NeCoMuScripts
+-- ============================================================
+
+local WindUI = loadstring(game:HttpGet("https://tree-hub.luau.site/material-ui"))()
+
+local Window = WindUI:CreateWindow({
+    Title = "Necomu Hub Mobile V3",
+    Icon = "rbxassetid://10723346959",
+    Author = "Necomu Team",
+    Folder = "NecomuHubV3",
+    Size = UDim2.fromOffset(600, 360),
+    Transparent = true,
+    Theme = "Dark"
+})
+
+-- Animated gradient
+task.spawn(function()
+    local mainFrame = Window:GetFrame() or Window.Main
+    if mainFrame then
+        local gradient = Instance.new("UIGradient")
+        gradient.Rotation = 45
+        gradient.Parent = mainFrame
+
+        local purple = Color3.fromRGB(128, 0, 128)
+        local black = Color3.fromRGB(0, 0, 0)
+        local white = Color3.fromRGB(255, 255, 255)
+
+        while task.wait(0.03) do
+            for i = 0, 1, 0.02 do
+                gradient.Color = ColorSequence.new({
+                    ColorSequenceKeypoint.new(0, purple:Lerp(black, i)),
+                    ColorSequenceKeypoint.new(1, black:Lerp(white, i))
+                })
+                task.wait(0.03)
+            end
+
+            for i = 0, 1, 0.02 do
+                gradient.Color = ColorSequence.new({
+                    ColorSequenceKeypoint.new(0, black:Lerp(white, i)),
+                    ColorSequenceKeypoint.new(1, white:Lerp(purple, i))
+                })
+                task.wait(0.03)
+            end
+
+            for i = 0, 1, 0.02 do
+                gradient.Color = ColorSequence.new({
+                    ColorSequenceKeypoint.new(0, white:Lerp(purple, i)),
+                    ColorSequenceKeypoint.new(1, purple:Lerp(black, i))
+                })
+                task.wait(0.03)
+            end
+        end
+    end
+end)
+
+local function notify(title, text)
+    WindUI:Notify({
+        Title = title,
+        Content = text,
+        Duration = 3
+    })
+end
+
+local function runScript(url, name)
+    notify("Necomu Universal", "⏳ " .. name .. " yükleniyor...")
+
+    task.spawn(function()
+        local ok, err = pcall(function()
+            local source = game:HttpGet(url)
+            local fn = loadstring(source)
+
+            if not fn then
+                error("loadstring başarısız")
+            end
+
+            fn()
+        end)
+
+        if ok then
+            notify("Necomu Universal", "✅ " .. name .. " yüklendi")
+        else
+            warn("[Necomu Universal] " .. name .. ": " .. tostring(err))
+            notify("Necomu Universal", "❌ " .. name .. " yüklenemedi")
+        end
+    end)
+end
+
+-- ============================================================
+-- UNIVERSAL TAB
+-- ============================================================
+local Universal = Window:Tab({
+    Title = "🌐 Universal",
+    Icon = "rbxassetid://10723415903"
+})
+
+Universal:Button({
+    Title = "Click TP",
+    Callback = function()
+        runScript(
+            "https://rawscripts.net/raw/Universal-Script-Click-TP-224342",
+            "Click TP"
+        )
+    end
+})
+
+Universal:Button({
+    Title = "Server Browser • Keyless",
+    Callback = function()
+        runScript(
+            "https://rawscripts.net/raw/Universal-Script-Server-browsers-keyless-129205",
+            "Server Browser"
+        )
+    end
+})
+
+Universal:Button({
+    Title = "Infinite Yield • Universal",
+    Callback = function()
+        runScript(
+            "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source",
+            "Infinite Yield"
+        )
+    end
+})
+
+Universal:Button({
+    Title = "Universal ESP • Keyless",
+    Callback = function()
+        runScript(
+            "https://obj.wearedevs.net/140060/scripts/Universal%20ESP.lua",
+            "Universal ESP"
+        )
+    end
+})
+
+Universal:Button({
+    Title = "0xVyrs ESP Suite • Keyless",
+    Callback = function()
+        runScript(
+            "https://raw.githubusercontent.com/gamer94z/Universal-ROBLOX-ESP-Suite/main/esp.lua",
+            "0xVyrs ESP Suite"
+        )
+    end
+})
+
+Universal:Button({
+    Title = "Veltrix Universal • Keyless",
+    Callback = function()
+        runScript(
+            "https://raw.githubusercontent.com/diedforhereveryday-spec/Veltrix/main/Veltrix%20Hub",
+            "Veltrix Universal"
+        )
+    end
+})
+
+Universal:Button({
+    Title = "c00lkidd GUI • Universal",
+    Callback = function()
+        runScript(
+            "https://raw.githubusercontent.com/cfsmi2/c00lguiv1/refs/heads/main/Main.lua",
+            "c00lkidd GUI"
+        )
+    end
+})
+
+Universal:Button({
+    Title = "Infinite Yield Mirror",
+    Callback = function()
+        runScript(
+            "https://raw.githubusercontent.com/DarkNetworks/Infinite-Yield/main/latest.lua",
+            "Infinite Yield Mirror"
+        )
+    end
+})
+
+notify("Necomu Universal", "✅ Universal sekmesi hazır!")
